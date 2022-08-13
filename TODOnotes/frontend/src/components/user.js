@@ -12,13 +12,13 @@ const UserItem = ({user}) => {
 }
 
 const UserList = ({users}) => {
-    return {
+    return (
         <table>
             <th>First name</th>
             <th>Last name</th>
             <th>Email</th>
             {users.map((user) => <UserItem user={user}/>)}
         </table>
-    }
+    )
 }
 export default UserList
