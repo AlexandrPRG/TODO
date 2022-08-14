@@ -3,10 +3,13 @@ import React from "react";
 
 const Menu = (menu) => {
     return (
-        <p><a
-            href="#"
-            point1>
-        </a></p>
-    )
-}
+    <div>
+        <ul>
+            <li><a href="#">{menu.menuitem[0]}</a></li>
+            <li><a href="#">{menu.menuitem[1]}</a></li>
+            <li><a href="#">{menu.menuitem[2]}</a></li>
+        </ul>
+    </div>
+    );
+};
 export default Menu
