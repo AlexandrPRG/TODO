@@ -61,6 +61,8 @@ INSTALLED_APPS = [
 
     # my project
     'users',
+    'notes',
+
 ]
 
 
