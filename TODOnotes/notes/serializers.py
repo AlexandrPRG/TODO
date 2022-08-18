@@ -3,7 +3,7 @@ from rest_framework.serializers import HyperlinkedModelSerializer, ModelSerializ
 from notes.models import Project, ToDo
 
 
-class ProjectModelSerializer(ModelSerializer):
+class ProjectHyperlinkedModelSerializer(HyperlinkedModelSerializer):
     class Meta:
         model = Project
         fields = (
@@ -24,3 +24,4 @@ class ToDoModelSerializer(ModelSerializer):
             'user_todo',
             'is_active',
         )
+        # exclude = ('is_active')
