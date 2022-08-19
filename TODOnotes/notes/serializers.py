@@ -1,9 +1,10 @@
-from rest_framework.serializers import HyperlinkedModelSerializer, ModelSerializer
+from rest_framework.serializers import HyperlinkedModelSerializer, ModelSerializer, StringRelatedField
 
 from notes.models import Project, ToDo
 
 
 class ProjectHyperlinkedModelSerializer(HyperlinkedModelSerializer):
+    developers = StringRelatedField(many=True)
     class Meta:
         model = Project
         fields = (

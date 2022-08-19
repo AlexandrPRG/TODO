@@ -10,9 +10,9 @@ const Menu = (menu) => {
             <li
 //              style="display: inline;"
             >
-                <a href="#">{menu.menuitem[0]}</a></li>
-            <li><a href="#">{menu.menuitem[1]}</a></li>
-            <li><a href="#">{menu.menuitem[2]}</a></li>
+                <a href="{{menu.menulinks[0]}}">{menu.menuitems[0]}</a></li>
+            <li><a href="{{menu.menulinks[0]}}#">{menu.menuitems[1]}</a></li>
+            <li><a href="{{menu.menulinks[0]}}">{menu.menuitems[2]}</a></li>
         </ul>
     </div>
     );

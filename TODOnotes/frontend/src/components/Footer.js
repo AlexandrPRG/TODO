@@ -1,11 +1,14 @@
 import React from "react";
 
-
-const Footer = (footer) => {
+//const Footer = (footer) => {
+export default function Footer () {
     return (
     <div>
-            <a href="#">{footer.footer[0]}</a>
+        <footer>
+        <a href="#">About us</a>
+        </footer>
     </div>
     );
+//        <a href="#">{footer.footer[0]}</a>
 };
-export default Footer
+//export default Footer
