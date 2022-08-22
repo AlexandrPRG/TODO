@@ -5,6 +5,8 @@ import axios from "axios";
 import UserList from './components/user.js';
 import Menu from './components/Menu.js';
 import Footer from './components/Footer.js';
+import ProjectList from './components/projects.js';
+import {HashRouter, Route} from 'react-router-dom';
 
 const DOMAIN = 'http://127.0.0.1:8000/api/';
 // const get_url = (url) =>  `${DOMAIN}${URL}`;
@@ -15,9 +17,9 @@ class App extends React.Component {
         super(props)
         this.state = {
             users: [],
-//          projects: [],
-//          todoes: [],
-            menuitems: ["Главная", "Авторы", "Заметки"],
+          projects: [],
+          todoes: [],
+            menuitems: ["Главная", "Авторы", "Проекты", "Заметки"],
             menulinks:  ["/", "/users", "/todoes"],
             footer: ["О нас"],
         }
@@ -30,6 +32,12 @@ class App extends React.Component {
                  {users: response.data},
                  );}
         ).catch(error => console.log(error));
+        axios.get('http://127.0.0.1:8000/api/projects/').then(
+             response => {
+                 this.setState(
+                 {projects: response.data},
+                 );}
+        ).catch(error => console.log(error));
     }
     render () {
         return (
@@ -38,8 +46,12 @@ class App extends React.Component {
                 <Menu menuitems={this.state.menuitems}/>
             </header>
             <main>
-                {/* <Menu menulinks={this.state.menulinks}/> */}
+            <div>
+                <HashRouter>
                 <UserList users={this.state.users}/>
+                <ProjectList projects={this.state.projects}/>
+                </HashRouter>
+            </div>
             </main>
             <Footer footer={this.state.footer}/>
         </div>
