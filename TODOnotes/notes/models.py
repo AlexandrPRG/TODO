@@ -10,6 +10,7 @@ class Project(models.Model):
     developers = models.ManyToManyField(
         User,
         # on_delete = models.CASCADE,
+
     )
 
 
