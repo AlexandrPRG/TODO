@@ -4,6 +4,7 @@ import './App.css';
 import axios from "axios";
 import UserList from './components/user.js';
 import Menu from './components/Menu.js';
+import MenuLinks from './components/Menu.js';
 import Footer from './components/Footer.js';
 import ProjectList from './components/projects.js';
 import Todoeslist from './components/todoes.js';
@@ -23,7 +24,7 @@ class App extends React.Component {
             projects: [],
             todoes: [],
             menuitems: ["Главная", "Авторы", "Проекты", "Заметки"],
-            menulinks:  ["/", "/users", "/todoes", "/projects"],
+            menulinks:  ["/", "/users", "/projects", "/todoes",],
             footer: ["О нас"],
             footer_links: ["/"],
         }
@@ -58,7 +59,8 @@ class App extends React.Component {
         <div>
             
             <header>
-                <Menu menuitems={this.state.menuitems}/>
+                {/* <Menu menuitems={this.state.menuitems}/> */}
+                {/* <MenuLinks menulinks={this.state.menulinks}/> */}
             </header>
             <main>
             <div>
@@ -66,8 +68,21 @@ class App extends React.Component {
                 {/* <ProjectList projects={this.state.projects}/> */}
                 <BrowserRouter>
                 {/* <Routes> */}
+                <nav>
+                    <ul>
+                    <li><Link to={this.state.menulinks[0]}>{this.state.menuitems[0]}</Link></li>
+                    <li><Link to={this.state.menulinks[1]}>{this.state.menuitems[1]}</Link></li>
+                    <li><Link to={this.state.menulinks[2]}>{this.state.menuitems[2]}</Link></li>
+                    <li><Link to={this.state.menulinks[3]}>{this.state.menuitems[3]}</Link></li>
+                    </ul>
+                </nav>
                     {/* <Route exact path='/' component={<Navigate to='/users' />} /> */}
-                    <Route exact path='/' component={() => <UserList users={this.state.users}/>}/>
+                    <Route exact path='/' 
+                    component={() => <UserList users={this.state.users}/>}
+                    component={() => <ProjectList projects={this.state.projects}/>} 
+                    component={() => <Todoeslist todoes={this.state.todoes}/>} />
+                    
+                    <Route exact path='/users' component={() => <UserList users={this.state.users}/>} />   
                     <Route exact path='/projects' component={() => <ProjectList projects={this.state.projects}/>} />                    
                     <Route exact path='/todoes' component={() => <Todoeslist todoes={this.state.todoes}/>} />
                 {/* </Routes> */}
