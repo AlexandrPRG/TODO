@@ -8,6 +8,7 @@ import MenuLinks from './components/Menu.js';
 import Footer from './components/Footer.js';
 import ProjectList from './components/projects.js';
 import Todoeslist from './components/todoes.js';
+import NotFound404 from './components/Notfound404.js';
 
 // import {HashRouter, Route} from 'react-router-dom';
 import {BrowserRouter, Route,  Link,  useLocation} from 'react-router-dom'
@@ -85,6 +86,7 @@ class App extends React.Component {
                     <Route exact path='/users' component={() => <UserList users={this.state.users}/>} />   
                     <Route exact path='/projects' component={() => <ProjectList projects={this.state.projects}/>} />                    
                     <Route exact path='/todoes' component={() => <Todoeslist todoes={this.state.todoes}/>} />
+                    <Route component={NotFound404} />
                 {/* </Routes> */}
                 </BrowserRouter>
             </div>
