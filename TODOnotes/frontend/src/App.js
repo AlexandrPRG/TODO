@@ -9,9 +9,10 @@ import Footer from './components/Footer.js';
 import ProjectList from './components/projects.js';
 import Todoeslist from './components/todoes.js';
 import NotFound404 from './components/Notfound404.js';
+import UserTodoes from './components/details.js';
 
 // import {HashRouter, Route} from 'react-router-dom';
-import {BrowserRouter, Route,  Link,  useLocation} from 'react-router-dom'
+import {BrowserRouter, Route,  Link,  useLocation, Switch, Redirect} from 'react-router-dom'
 
 const DOMAIN = 'http://127.0.0.1:8000/api/';
 // const get_url = (url) =>  `${DOMAIN}${URL}`;
@@ -78,7 +79,8 @@ class App extends React.Component {
                     </ul>
                 </nav>
                     {/* <Route exact path='/' component={<Navigate to='/users' />} /> */}
-                    <Route exact path='/' 
+                <Switch>
+                    <Route exact path='/'
                     component={() => <UserList users={this.state.users}/>}
                     component={() => <ProjectList projects={this.state.projects}/>} 
                     component={() => <Todoeslist todoes={this.state.todoes}/>} />
@@ -86,7 +88,13 @@ class App extends React.Component {
                     <Route exact path='/users' component={() => <UserList users={this.state.users}/>} />   
                     <Route exact path='/projects' component={() => <ProjectList projects={this.state.projects}/>} />                    
                     <Route exact path='/todoes' component={() => <Todoeslist todoes={this.state.todoes}/>} />
+                    <Route path='/user/:id'> <UserTodoes todoes={this.state.todoes}/>
+
+                    </Route>
+                    <Redirect from='user' to='users' />
                     <Route component={NotFound404} />
+                    
+                </Switch>
                 {/* </Routes> */}
                 </BrowserRouter>
             </div>
