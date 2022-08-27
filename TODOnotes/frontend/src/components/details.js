@@ -7,7 +7,7 @@ const UserItem = ({ user }) => {
     let { id } = useParams()
     console.log(id)
     console.log(useParams)
-    let filter_todoes = user.filter((todo => todo.todo.users.includes(parseInt(id))))
+    let filter_todoes = user.filter((todo => todo.users.includes(parseInt(id))))
     return (
         <tr>
             <td><Link to={`/user/${user.id}`}>{user.first_name}</Link></td>

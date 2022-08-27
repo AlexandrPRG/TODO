@@ -30,5 +30,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('api/', include(router.urls)),
-    # path('api/user-view/', UserCustomViewSet.as_view(), name = 'user-view')
+    # path('userview/<int:pk>/', UserCustomViewSet.as_view(), name = 'user-view')
 ]

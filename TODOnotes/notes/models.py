@@ -5,14 +5,12 @@ from users.models import User
 
 
 class Project(models.Model):
-    name_project = models.CharField(blank=True, max_length=64)
-    link_project = models.URLField(verbose_name="GIT link")
-    developers = models.ManyToManyField(
-        User,
-        # on_delete = models.CASCADE,
+    name_project = models.CharField(max_length=32, unique=True)
+    link_project = models.URLField(verbose_name="GIT link", blank=True)
+    developers = models.ManyToManyField(User)
 
-    )
-
+    def __str__(self):
+        return self.name_project
 
 class ToDo(models.Model):
     todo_project = models.ForeignKey(
