@@ -12,6 +12,7 @@ class Project(models.Model):
     def __str__(self):
         return self.name_project
 
+
 class ToDo(models.Model):
     todo_project = models.ForeignKey(
         Project,

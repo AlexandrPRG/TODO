@@ -5,20 +5,27 @@ from rest_framework.views import View, APIView
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination
 from rest_framework.viewsets import ModelViewSet, ViewSet
-from rest_framework.permissions import AllowAny, BasePermission
-
-from users.models import User
+from rest_framework import  permissions
+from .serializers import ProjectHyperlinkedModelSerializer, ToDoModelSerializer
 from .filters import TodoFilter
 from .models import Project, ToDo
 from users.serializers import UserModelSerializer
+from users.models import User
 
 
-from .serializers import ProjectHyperlinkedModelSerializer, ToDoModelSerializer
 
-
-class StaffOnly(BasePermission):
+class Admins(permissions.IsAdminUser):
     def has_permission(self, request, view):
-        return request.user.is_staff
+        return True
+
+
+class Develops(permissions.BasePermission):
+    def has_permission(self, request, view):
+        return request.user.is_authenticated
+
+class Owners(permissions.BasePermission):
+    def has_permission(self, request, view):
+        return request.user.is_authenticated
 
 
 class ProjectPageNumberPagination(PageNumberPagination):
@@ -39,7 +46,7 @@ class ProjectModelViewSet(ModelViewSet):
     serializer_class = ProjectHyperlinkedModelSerializer
     queryset = Project.objects.all()
     pagination_class = ProjectPageNumberPagination
-    permission_classes = [StaffOnly]
+    permission_classes = [Admins, Owners]
 
     # def get_queryset(self):
     #     query_set = Project.objects.all()
@@ -53,6 +60,7 @@ class TodoModelViewSet(ModelViewSet):
     queryset = ToDo.objects.all()
     pagination_class = TodoPageNumberPaginationViewSet
     filterset_class = TodoFilter
+    permission_classes = [Admins, Develops, Owners]
 
     def destroy(self, request, *args, **kwargs):
         try:
