@@ -32,7 +32,9 @@ class App extends React.Component {
             footer_links: ["/"],
         }
     }
-
+    get_token(username, password){
+        console.log(username, password)
+    }
     componentDidMount() {
     // state users
         axios.get('http://127.0.0.1:8000/api/users/').then(
@@ -77,6 +79,7 @@ class App extends React.Component {
                     <li><Link to={this.state.menulinks[1]}>{this.state.menuitems[1]}</Link></li>
                     <li><Link to={this.state.menulinks[2]}>{this.state.menuitems[2]}</Link></li>
                     <li><Link to={this.state.menulinks[3]}>{this.state.menuitems[3]}</Link></li>
+                    <li><Link to='/login'>Login</Link></li>
                     </ul>
                 </nav>
                     {/* <Route exact path='/' component={<Navigate to='/users' />} /> */}
@@ -89,6 +92,7 @@ class App extends React.Component {
                     <Route exact path='/users' component={() => <UserList users={this.state.users}/>} />   
                     <Route exact path='/projects' component={() => <ProjectList projects={this.state.projects}/>} />                    
                     <Route exact path='/todoes' component={() => <Todoeslist todoes={this.state.todoes}/>} />
+                    <Route exact path='/login' component={() => <LoginForm get_token={(username, password) => this.get_token(username, password)}/>} />
                     <Route path='/user/:id'> <UserTodoes todoes={this.state.todoes}/>
 
                     </Route>
