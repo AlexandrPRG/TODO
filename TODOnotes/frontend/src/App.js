@@ -26,8 +26,9 @@ class App extends React.Component {
             users: [],
             projects: [],
             todoes: [],
-            menuitems: ["Главная", "Авторы", "Проекты", "Заметки"],
-            menulinks:  ["/", "/users", "/projects", "/todoes",],
+            token: '',
+            menuitems: ["Главная", "Авторы", "Проекты", "Заметки", "Login"],
+            menulinks:  ["/", "/users", "/projects", "/todoes", "/login"],
             footer: ["О нас"],
             footer_links: ["/"],
         }
@@ -79,7 +80,7 @@ class App extends React.Component {
                     <li><Link to={this.state.menulinks[1]}>{this.state.menuitems[1]}</Link></li>
                     <li><Link to={this.state.menulinks[2]}>{this.state.menuitems[2]}</Link></li>
                     <li><Link to={this.state.menulinks[3]}>{this.state.menuitems[3]}</Link></li>
-                    <li><Link to='/login'>Login</Link></li>
+                    <li><Link to={this.state.menulinks[4]}>{this.state.menuitems[4]}</Link></li>
                     </ul>
                 </nav>
                     {/* <Route exact path='/' component={<Navigate to='/users' />} /> */}
@@ -92,7 +93,8 @@ class App extends React.Component {
                     <Route exact path='/users' component={() => <UserList users={this.state.users}/>} />   
                     <Route exact path='/projects' component={() => <ProjectList projects={this.state.projects}/>} />                    
                     <Route exact path='/todoes' component={() => <Todoeslist todoes={this.state.todoes}/>} />
-                    <Route exact path='/login' component={() => <LoginForm get_token={(username, password) => this.get_token(username, password)}/>} />
+                    <Route exact path='/login'
+                        component={() => <LoginForm get_token={(username, password) => this.get_token(username, password)}/>} />
                     <Route path='/user/:id'> <UserTodoes todoes={this.state.todoes}/>
 
                     </Route>
