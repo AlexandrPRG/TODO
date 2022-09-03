@@ -9,13 +9,13 @@ from .serializers import UserModelSerializer
 
 
 class UserModelViewSet(
-        # mixins.ListModelMixin,
-    #                mixins.RetrieveModelMixin,
-    #                mixins.UpdateModelMixin,
-    #                viewsets.GenericViewSet,
-        ModelViewSet
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    viewsets.GenericViewSet,
+        # ModelViewSet
     ):
     # renderer_classes = [JSONRenderer]
     queryset = User.objects.all()
     serializer_class = UserModelSerializer
-    # permission_classes = [Admins]
+    permission_classes = [Admins]
