@@ -53,8 +53,7 @@ class App extends React.Component {
 
     get_token(username, password){
         const data = {username: username, password: password}
-        console.log('data')
-        axios.get('http://127.0.0.1:8000/api-token-auth/', data).then(
+        axios.post('http://127.0.0.1:8000/api-token-auth/', data).then(
                 response => {this.set_token(response.data['token']);}
                 ).catch(error =>
                     alert(error+" - неверный логин или пароль"));
