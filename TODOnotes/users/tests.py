@@ -136,10 +136,39 @@ class TestProject(APITestCase):
 class TestTodoes(APITestCase):
     def setUp(self) -> None:
         self.url = '/api/todoes/'
-
+        self.login = 'admin'
+        self.password = 'sdfjlkj12340987'
+        self.admin = User.objects.create_superuser(self.login, self.password)
+        self.project_dict = {
+            'name_project': 'name20upd',
+            'link_project': 'http://www.NEWtext-new.git',
+        }
+        self.project = Project.objects.create(**self.project_dict)
+        self.ToDo_dict = {'todo_project':self.project,
+                          'text_note': 'texttodoOLD',
+                          'user_todo': self.admin}
+        self.ToDo_dict_upd = {'todo_project':self.project,
+                          'text_note': 'texttodoNEW',
+                          'user_todo': self.admin}
+        self.ToDo = ToDo.objects.create(**self.ToDo_dict)
     def test_apitestcase_list_todoes(self):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_apitestcase_update_admin(self):
+        self.client.force_login(self.admin)
+        response = self.client.put(f'{self.url}{self.ToDo.id}/',
+                                   self.ToDo_dict_upd)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_mixer(self):
+        project = mixer.blend(Project)
+        user = mixer.blend(User)
+        todo = mixer.blend(ToDo)
+        self.client.force_login(self.admin)
+        response = self.client.put(f'{self.url}{self.ToDo.id}/',
+                                   self.ToDo_dict_upd)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def tearDown(self) -> None:
         pass
