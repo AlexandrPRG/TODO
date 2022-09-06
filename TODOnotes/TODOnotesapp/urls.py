@@ -33,6 +33,6 @@ urlpatterns = [
     path('api/', include(router.urls)),
     # path('userview/<int:pk>/', UserCustomViewSet.as_view(), name = 'user-view')
     path('api-token-auth/', views.obtain_auth_token),
-    path('', include('usersapp.urls')),
+    path('userapp/', include('userapp.urls')),
 
 ]
