@@ -58,16 +58,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+# rest apps
     'rest_framework',
     'django_filters',
     'corsheaders',
     'rest_framework.authtoken',
-
-
-    # my project
+# my project
     'users',
     'notes',
+    'usersapp',
 
 ]
 
