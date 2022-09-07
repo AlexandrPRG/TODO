@@ -8,6 +8,9 @@ class UserListAPIView(generics.ListAPIView):
     serializer_class = UserSerializer
 
     def get_serializer_class(self):
+        # self.request.version = self.request.parser_context['kwargs']['version']
+        version = self.request.parser_context['request'] #.kwargs.version
+
         if self.request.version == 'v1':
             return UserCustomSerializer
         return UserSerializer
