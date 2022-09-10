@@ -1,9 +1,10 @@
-from rest_framework.serializers import HyperlinkedModelSerializer, ModelSerializer, StringRelatedField
+from rest_framework.serializers import ModelSerializer, StringRelatedField
 
 from notes.models import Project, ToDo
+from usersapp.serializers import UserSerializer
 
 
-class ProjectHyperlinkedModelSerializer(ModelSerializer):
+class ProjectSerializer(ModelSerializer):
     developers = StringRelatedField(many=True)
     class Meta:
         model = Project
@@ -11,6 +12,15 @@ class ProjectHyperlinkedModelSerializer(ModelSerializer):
             'name_project',
             'link_project',
             'developers',
+            )
+
+
+class ProjectCustomSerializer(ModelSerializer):
+    developers = UserSerializer()
+    class Meta:
+        model = Project
+        exclude = (
+            'link_project',
             )
 
 
@@ -26,3 +36,13 @@ class ToDoModelSerializer(ModelSerializer):
         #     'user_todo',
         #     'is_active',
         # )
+
+
+class ToDoCustomSerializer(ModelSerializer):
+    class Meta:
+        model = ToDo
+        fields = (
+            'text_note',
+            'date_create',
+            'date_update',
+        )

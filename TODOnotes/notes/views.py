@@ -6,7 +6,8 @@ from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination
 from rest_framework.viewsets import ModelViewSet, ViewSet
 from rest_framework import  permissions
-from .serializers import ProjectHyperlinkedModelSerializer, ToDoModelSerializer
+from .serializers import ProjectSerializer, ToDoModelSerializer, ProjectCustomSerializer, \
+    ToDoCustomSerializer
 from .filters import TodoFilter
 from .models import Project, ToDo
 from users.serializers import UserModelSerializer
@@ -43,10 +44,14 @@ class TodoPageNumberPaginationViewSet(PageNumberPagination):
 
 
 class ProjectModelViewSet(ModelViewSet):
-    serializer_class = ProjectHyperlinkedModelSerializer
+    serializer_class = ProjectSerializer
     queryset = Project.objects.all()
     pagination_class = ProjectPageNumberPagination
     permission_classes = [Admins, Owners]
+
+    def get_serializer_class(self):
+        if self.request.version == 'v2':
+            return ProjectCustomViewSet
 
     # def get_queryset(self):
     #     query_set = Project.objects.all()
@@ -77,13 +82,19 @@ class ProjectAPIView(ViewSet):
 
     def get(self, request):
         projects = Project.objects.all()
-        serializer = ProjectHyperlinkedModelSerializer(Project, many=True)
+        serializer = ProjectSerializer(Project, many=True)
         return Response(serializer.data)
 
 
 class UserCustomViewSet(ViewSet):
     queryset = ToDo.objects.all()
     serializer_class = UserModelSerializer
+
+class ProjectCustomViewSet(ViewSet):
+    def get_serializer_class(self):
+        if self.request.version == 'v2':
+            return ProjectCustomSerializer
+        return ProjectSerializer
 
 
 class TodoCustomViewSet(ViewSet):
@@ -93,8 +104,13 @@ class TodoCustomViewSet(ViewSet):
         obj.is_active = False
         obj.save()
 
+    def get_serializer_class(self):
+        if self.request.version == 'v2':
+            return ToDoCustomSerializer
+        return ToDoModelSerializer
+
 
 class ProjectPageNumberPaginationViewSet(PageNumberPagination):
     queryset = Project.objects.all()
-    serializer_class = ProjectHyperlinkedModelSerializer
+    serializer_class = ProjectSerializer
     pagination_class = ProjectPageNumberPagination
