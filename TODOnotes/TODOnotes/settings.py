@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'django_filters',
     'corsheaders',
     'rest_framework.authtoken',
+    'drf_yasg',
 # my project
     'users',
     'notes',
