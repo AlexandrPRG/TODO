@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from graphene_django.views import GraphQLView
 from rest_framework import permissions
 from rest_framework.routers import DefaultRouter, SimpleRouter
 from rest_framework.authtoken import views
@@ -53,7 +54,9 @@ urlpatterns = [
     path('api/users/v1', include('usersapp.urls', namespace='v1')),
     path('api/users/v2', include('usersapp.urls', namespace='v2')),
     path('api/swager<str:format>/', schema_view.without_ui()),
-    path('swager/', schema_view.with_ui('swager')),
+    # path('swager/', schema_view.with_ui('swager')),
     path('redoc/', schema_view.with_ui('redoc')),
+
+    path('graphiql/', GraphQLView.as_view(graphiql=True)),
 
 ]
