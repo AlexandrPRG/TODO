@@ -25,9 +25,19 @@ class UserType(DjangoObjectType):
 
 
 class UserUpdateMutation(graphene.Mutation):
+    class Arguments:
+        first_name = graphene.String()
+        last_name = graphene.String()
+        email = graphene.String(required=True)
+        id = graphene.ID()
+    user = graphene.Field(UserType)
+
     @classmethod
     def mutate(cls, root, info, **kwargs):
-        pass
+        user = User.objects.get(id=kwargs.get('id'))
+        user.email = kwargs.get('email')
+        user.save()
+        return cls(user=user)
 
 class UserCreateMutation(graphene.Mutation):
     class Arguments:
@@ -48,7 +58,7 @@ class UserDeleteMutation(graphene.Mutation):
 
 
 class Mutations(ObjectType):
-    # update_user = UserUpdateMutation.Field()
+    update_user = UserUpdateMutation.Field()
     create_user = UserCreateMutation.Field()
     # delete_user = UserDeleteMutation.Field()
 
