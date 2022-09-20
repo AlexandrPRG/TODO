@@ -102,5 +102,3 @@ schema = graphene.Schema(
     # query=Query,
     mutation=Mutations
     )
-
-

@@ -36,6 +36,18 @@ class App extends React.Component {
     is_auth(){
         return !!this.state.token
     }
+    delete_user(id) {
+        const headers = this.get_headers()
+    // state users
+        axios.delete(`http://127.0.0.1:8000/api/users/${id}`, {headers}).then(response => {
+                console.log(id)
+                this.load_data()
+                }
+        ).catch(error => {
+            console.log(error);
+            this.setState({users:[]})});
+    }
+
     logout(){
         this.set_token('')
     }
@@ -61,7 +73,7 @@ class App extends React.Component {
     load_data() {
         const headers = this.get_headers()
     // state users
-        axios.get('http://127.0.0.1:8000/api/users/', headers).then(
+        axios.get('http://127.0.0.1:8000/api/users/', {headers}).then(
              response => {
                  this.setState(
                  {users: response.data},
@@ -131,7 +143,8 @@ class App extends React.Component {
                     component={() => <ProjectList projects={this.state.projects}/>} 
                     component={() => <Todoeslist todoes={this.state.todoes}/>} />
                     
-                    <Route exact path='/users' component={() => <UserList users={this.state.users}/>} 
+                    <Route exact path='/users' component={() =>     <UserList users={this.state.users}
+                    delete_user={(id)=>this.delete_user(id)}/>} 
                     />   
                     <Route exact path='/projects' component={() => <ProjectList projects={this.state.projects}/>} 
                     />                    
