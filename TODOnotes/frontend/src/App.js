@@ -36,6 +36,17 @@ class App extends React.Component {
     is_auth(){
         return !!this.state.token
     }
+
+    create_user(username, email) {
+        const headers = this.get_headers()
+        const data = {username:username, email:email}
+        axios.post(`http://127.0.0.1:8000/api/users/`, data, {headers}).then(response => {
+                this.load_data()
+                }
+        ).catch(error => {
+            console.log(error);
+            this.setState({users:[]})});
+    }
     delete_user(id) {
         const headers = this.get_headers()
     // state users
@@ -145,7 +156,10 @@ class App extends React.Component {
                     
                     <Route exact path='/users' component={() =>     <UserList users={this.state.users}
                     delete_user={(id)=>this.delete_user(id)}/>} 
-                    />   
+                    />
+                    <Route exact path='/users/create' component={() =>     <UserList users={this.state.users}
+                    create_user={(id)=>this.delete_user(id)}/>} 
+                    />
                     <Route exact path='/projects' component={() => <ProjectList projects={this.state.projects}/>} 
                     />                    
                     <Route exact path='/todoes' component={() => <Todoeslist todoes={this.state.todoes}/>} 
